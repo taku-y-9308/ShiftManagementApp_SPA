@@ -7,5 +7,13 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class ShiftViewSet(viewsets.ModelViewSet):
-    queryset = Shift.objects.all()
+    
     serializer_class = ShiftSerializer
+
+    def get_queryset(self):
+        queryset = Shift.objects.all()
+        user_id = self.request.query_params.get('user_id')
+        if user_id is not None:
+            user_id = int(user_id)
+            queryset = queryset.filter(user=user_id)
+        return queryset
