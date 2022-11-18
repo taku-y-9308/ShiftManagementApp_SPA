@@ -1,3 +1,4 @@
 ShiftManagementApp_project/local_settings.py
 ShiftManagementApp/__pycache__
 ShiftManagementApp_project/__pycache__
+db.sqlite3
