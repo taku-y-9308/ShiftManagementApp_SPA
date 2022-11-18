@@ -21,6 +21,7 @@ class ShiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shift
         fields = [
+            'id',
             'user',
             'date',
             'begin',
