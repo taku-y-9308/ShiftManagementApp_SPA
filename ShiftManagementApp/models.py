@@ -61,3 +61,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+class Shift(models.Model):
+    #foreignkeyに指定したUserはUserクラスがリターンしたやつを受け取っている
+    user = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name="ユーザーID",related_name='shift')
+    date = models.DateField("date")
+    begin = models.DateTimeField("begin")
+    finish = models.DateTimeField("finish")
+    position = models.BooleanField("position")
+    publish = models.BooleanField("publish",default=False)
+    def __str__(self):
+        return str(self.date)
