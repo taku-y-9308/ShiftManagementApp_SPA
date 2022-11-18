@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ShiftManagementApp.models import User
+from ShiftManagementApp.models import User,Shift
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,15 @@ class UserSerializer(serializers.ModelSerializer):
             'is_pwa_user',
             'date_joined'
             ]
+
+class ShiftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shift
+        fields = [
+            'user',
+            'date',
+            'begin',
+            'finish',
+            'position',
+            'publish'
+        ]
