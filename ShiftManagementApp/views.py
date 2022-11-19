@@ -3,9 +3,11 @@ from ShiftManagementApp.models import User,Shift
 from ShiftManagementApp.serializers import UserSerializer,ShiftSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters 
+from rest_framework.permissions import IsAdminUser
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
