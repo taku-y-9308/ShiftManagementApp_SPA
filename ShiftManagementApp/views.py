@@ -20,6 +20,26 @@ class ShiftFilter(filters.FilterSet):
 
 class ShiftViewSet(viewsets.ModelViewSet):
     serializer_class = ShiftSerializer
-    queryset = Shift.objects.all().order_by('begin')
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ShiftFilter
+    
+    def get_queryset(self):
+        if self.request.user.is_staff == True:
+            return Shift.objects.all().order_by('begin')
+        else:
+            return Shift.objects.filter(publish=True).order_by('begin') | Shift.objects.filter(user=self.request.user).order_by('begin')
+
+    """ 
+    def get_queryset(self):
+        
+       #クエリパラメータuserの有無で返すquerysetを変える
+        if self.request.query_params.get('user') is not None:
+
+             #クエリパラメータでuserのシフトを要求したユーザーが本人か、そうでないかで返すquertsetを変える
+            if self.request.user.id == int(self.request.query_params.get('user')):
+                return Shift.objects.filter(id=int(self.request.query_params.get('user'))).order_by('begin')
+            else:
+                return Shift.objects.filter(id=int(self.request.query_params.get('user')),publish=True).order_by('begin')
+        else:
+            return Shift.objects.all()
+    """
