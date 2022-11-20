@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
+    'dj_rest_auth'
 ]
 
 MIDDLEWARE = [
@@ -55,15 +57,14 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ]
-
-}
-"""
-
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
-"""
+}
+
+REST_AUTH_TOKEN_MODEL = None
+
 ROOT_URLCONF = 'ShiftManagementApp_project.urls'
 
 TEMPLATES = [
