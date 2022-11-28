@@ -18,11 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
             ]
 
 class ShiftSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Shift
         fields = [
             'id',
             'user',
+            'username',
             'date',
             'begin',
             'finish',
